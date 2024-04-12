@@ -1,0 +1,31 @@
+﻿@model List<MenuItem>
+@{
+    ViewBag.Title = "Menu";
+}
+
+<div class="row d-flex justify-content-between">
+    <form asp-controller="Menu" asp-action="Index" method="get">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="" name="searchString">
+            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
+                Search
+            </button>
+        </div>
+    </form>
+
+
+    @foreach(MenuItem menuItem in Model)
+    {
+        <a class="menu-card col-md-6 text-black text-decoration-none ps-0 mt-3 border border-dark"
+            asp-action="Details" asp-route-id="@menuItem.Id">
+            <div class="image">
+                <img src="@menuItem.ImageURL" alt="...">
+            </div>
+            <div class="text">
+                <h2 class="fs-4">@menuItem.Name</h2>
+                <p>@menuItem.Price.ToString("C")</p>
+            </div>
+        </a>
+    }
+    
+</div>

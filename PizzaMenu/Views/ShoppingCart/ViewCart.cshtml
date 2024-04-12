@@ -1,0 +1,58 @@
+﻿@model ShoppingCartVM
+@{
+}
+
+<h2>My Cart</h2>
+
+@if (TempData["CartMessage"] != null)
+{
+    <h5 class="text-center p-5 bg-secondary rounded text-light">@TempData["CartMessage"]</h5>
+}
+
+<div class="">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Price (USD $)</th>
+                <th scope="col">Quantity</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CartItem cartItem in Model.CartItems)
+            {
+                <tr>
+                    <td>@cartItem.MenuItem.Name</td>
+                    <td>@cartItem.MenuItem.Price.ToString("C") / each</td>
+                    <td>@cartItem.Amount</td>
+                    <td>
+                        <a class="btn btn-danger" asp-controller="ShoppingCart" asp-action="RemoveFromCart"
+                        asp-route-id="@cartItem.MenuItem.Id">
+                            @if (cartItem.Amount > 1)
+                            {
+                                <p>Remove 1</p>
+                            }
+                            else
+                            {
+                                <p class="">Delete</p>
+                            }
+                        </a>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td></td>
+                <td>Total : </td>
+                <td>@Model.TotalPrice.ToString("C")</td>
+                <td>
+                    <a asp-action="Checkout" asp-controller="ShoppingCart" class="btn btn-primary">
+                        Checkout
+                    </a>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
